@@ -287,22 +287,22 @@ rbind(
 Calculating log likelihood and prior
 
 ```{r compare_ll_prior}
-#log likelihoods
+# log likelihoods
 model_max_stressed_ssp$loglik
 # -228.811
 model_max_stressed_ssp_bias1$loglik
 # -228.9289
 
-#priors
-sum(((model_max_stressed_ssp$weights - 0)^2)/(2* 1^2))
+# priors
+sum(((model_max_stressed_ssp$weights - 0)^2)/(2 * 1^2))
 # 2.114716
-sum(((model_max_stressed_ssp_bias1$weights - 0)^2)/(2* 1^2))
+sum(((model_max_stressed_ssp_bias1$weights - 0)^2)/(2 * 1^2))
 # 1.787735
 
-#values of objective function
-model_max_stressed_ssp$loglik - sum(((model_max_stressed_ssp$weights - 0)^2)/(2* 1^2))
+# values of objective function
+model_max_stressed_ssp$loglik - sum(((model_max_stressed_ssp$weights - 0)^2)/(2 * 1^2))
 # -230.9257
-model_max_stressed_ssp_bias1$loglik - sum(((model_max_stressed_ssp_bias1$weights - 0)^2)/(2* 1^2))
+model_max_stressed_ssp_bias1$loglik - sum(((model_max_stressed_ssp_bias1$weights - 0)^2)/(2 * 1^2))
 # -230.7166
 ```
 
@@ -310,7 +310,7 @@ custom values for each constraint
 
 ```{r elaborate_bias}
 model_max_stressed_ssp_bias2 <- optimize_weights(
-  max_stressed_ssp_input, mu = c(2,0,0,1), sigma = c(1, 1, 0.1, 1)
+  max_stressed_ssp_input, mu = c(2, 0, 0, 1), sigma = c(1, 1, 0.1, 1)
 )
 
 rbind(
@@ -325,7 +325,7 @@ Read bias terms from a data frame or tibble.
 ```{r make_table}
 bias_table <- tibble(
   Constraint = c("StarComplex", "Max", "MaxStressed", "SSP"), 
-  Mu = c(2,0,0,1), 
+  Mu = c(2, 0, 0, 1), 
   Sigma = c(1, 1, 0.1, 1)
 )
 
@@ -421,7 +421,7 @@ Fit to training slices only
 ```{r fit_to_traiing}
 # Fit model to training data
 shona_1000_crossval_model <- optimize_weights(
-  training_tableau, mu = 0, sigma = 1000, control_params = NA, upper_bound = 10
+  training_tableau, mu = 0, sigma = 1000, upper_bound = 10
 ) 
 shona_1000_crossval_model$loglik
 # Model's loglik = -698.4757
@@ -697,13 +697,12 @@ Use a temperature value greater than 1
 
 ```{r temperature}
 # Call predict_probabilities with the sample parameters used to generate
-# predictions in last column of Table 12, but with temperature = 5.
+# predictions in last column of Table 15, but with temperature = 2.
 result <- predict_probabilities(
   max_stressed_ssp_input, model_max_stressed_ssp$weights, temperature=2)
 
 result$loglik
-# -228.811
+# -239.3805
 
 result$predictions
-# Table 25
 ```
